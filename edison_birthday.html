@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Happy 22nd Birthday, Edison! ⚡</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@700;900&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --red:    #e3350d;
+      --yellow: #ffcb05;
+      --blue:   #3b4cca;
+      --white:  #ffffff;
+      --dark:   #1a1a2e;
+      --darker: #0f0f1e;
+    }
+
+    body {
+      min-height: 100vh;
+      background: var(--darker);
+      font-family: 'Nunito', sans-serif;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+    }
+
+    /* ── Animated grass background ── */
+    #bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    /* Sky gradient */
+    #bg::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, #0a0a23 0%, #1a1a3e 50%, #0d2b0d 100%);
+    }
+
+    /* Floating Pokéballs in background */
+    .bg-ball {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.06;
+      animation: driftBall linear infinite;
+    }
+
+    @keyframes driftBall {
+      0%   { transform: translateY(110vh) rotate(0deg); }
+      100% { transform: translateY(-20vh) rotate(360deg); }
+    }
+
+    /* Stars */
+    .star {
+      position: absolute;
+      border-radius: 50%;
+      background: #ffcb05;
+      animation: twinkle 2s infinite alternate;
+    }
+
+    @keyframes twinkle {
+      from { opacity: 0.15; transform: scale(1); }
+      to   { opacity: 0.9;  transform: scale(1.4); }
+    }
+
+    /* ── Main card ── */
+    #card {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      padding: 32px 40px 28px;
+      background: linear-gradient(160deg, #1e1e3f 0%, #16213e 100%);
+      border: 3px solid var(--yellow);
+      border-radius: 24px;
+      box-shadow:
+        0 0 0 6px rgba(255,203,5,0.15),
+        0 0 60px rgba(255,203,5,0.3),
+        inset 0 0 40px rgba(59,76,202,0.1);
+      max-width: 540px;
+      width: 93vw;
+    }
+
+    /* Pokédex accent stripe */
+    #card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, var(--red), var(--yellow), var(--blue), var(--yellow), var(--red));
+      border-radius: 21px 21px 0 0;
+    }
+
+    /* ── Header ── */
+    .poke-logo {
+      font-family: 'Press Start 2P', monospace;
+      font-size: clamp(0.55rem, 2vw, 0.75rem);
+      color: var(--yellow);
+      letter-spacing: 0.05em;
+      text-shadow: 2px 2px 0 var(--blue), -1px -1px 0 rgba(0,0,0,0.5);
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      font-size: clamp(1.3rem, 4.5vw, 1.9rem);
+      font-weight: 900;
+      color: var(--white);
+      text-shadow: 2px 2px 0 var(--blue), 0 0 20px rgba(255,203,5,0.5);
+      line-height: 1.25;
+      margin-bottom: 4px;
+    }
+
+    h1 span { color: var(--yellow); }
+
+    .age {
+      font-family: 'Press Start 2P', monospace;
+      font-size: clamp(2.8rem, 10vw, 4.5rem);
+      color: var(--yellow);
+      text-shadow: 4px 4px 0 var(--red), 0 0 30px rgba(255,203,5,0.6);
+      line-height: 1;
+      margin: 8px 0 4px;
+    }
+
+    .subtitle {
+      color: rgba(255,255,255,0.5);
+      font-size: 0.88rem;
+      margin-bottom: 20px;
+    }
+
+    /* ── Pikachu SVG ── */
+    #pika-wrap {
+      margin: 0 auto 18px;
+      width: 80px;
+      height: 80px;
+      animation: pikaBounce 1.6s ease-in-out infinite;
+      filter: drop-shadow(0 0 12px rgba(255,203,5,0.7));
+    }
+
+    @keyframes pikaBounce {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-8px); }
+    }
+
+    #pika-wrap.zap {
+      animation: pikaZap 0.3s ease-out;
+    }
+
+    @keyframes pikaZap {
+      0%   { transform: scale(1) rotate(0deg); filter: drop-shadow(0 0 20px #ffcb05) brightness(2); }
+      50%  { transform: scale(1.3) rotate(-5deg); }
+      100% { transform: scale(1) rotate(0deg); filter: drop-shadow(0 0 12px rgba(255,203,5,0.7)); }
+    }
+
+    /* ── Pokéball button ── */
+    #boom-btn {
+      position: relative;
+      cursor: pointer;
+      border: none;
+      background: none;
+      padding: 0;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      transition: transform 0.1s;
+      margin: 0 auto 6px;
+      display: block;
+      filter: drop-shadow(0 0 14px rgba(227,53,13,0.8));
+    }
+
+    #boom-btn:hover { filter: drop-shadow(0 0 22px rgba(255,203,5,0.9)); }
+
+    #boom-btn:active { transform: scale(0.9); }
+
+    #boom-btn svg { width: 100%; height: 100%; }
+
+    .btn-label {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.5rem;
+      color: var(--yellow);
+      letter-spacing: 0.05em;
+      margin-bottom: 18px;
+    }
+
+    #boom-btn.throw {
+      animation: throwBall 0.35s cubic-bezier(0.36,0.07,0.19,0.97);
+    }
+
+    @keyframes throwBall {
+      0%   { transform: scale(1) rotate(0deg); }
+      30%  { transform: scale(0.8) rotate(-20deg) translateY(-10px); }
+      60%  { transform: scale(1.2) rotate(15deg) translateY(5px); }
+      100% { transform: scale(1) rotate(0deg); }
+    }
+
+    /* ── HP Bar (progress) ── */
+    .hp-wrap {
+      margin-top: 14px;
+      text-align: left;
+    }
+
+    .hp-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 3px;
+    }
+
+    .hp-label {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.45rem;
+      color: var(--yellow);
+      flex-shrink: 0;
+    }
+
+    .hp-track {
+      flex: 1;
+      height: 8px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 4px;
+      border: 1px solid rgba(255,255,255,0.15);
+      overflow: hidden;
+    }
+
+    #prog-bar {
+      height: 100%;
+      border-radius: 4px;
+      background: linear-gradient(90deg, #4ade80, #22d3ee);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    .hp-sub {
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.3);
+      text-align: right;
+    }
+
+    /* ── Click counter ── */
+    #counter-wrap {
+      margin-top: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: rgba(0,0,0,0.3);
+      border: 1px solid rgba(255,203,5,0.2);
+      border-radius: 12px;
+      padding: 10px 20px;
+    }
+
+    #click-count {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 2rem;
+      color: var(--yellow);
+      text-shadow: 2px 2px 0 var(--red);
+      min-width: 60px;
+    }
+
+    #click-count.pop {
+      animation: popNum 0.18s ease-out;
+    }
+
+    @keyframes popNum {
+      0%   { transform: scale(1.6); color: #fff; }
+      100% { transform: scale(1); }
+    }
+
+    .counter-label {
+      color: rgba(255,255,255,0.4);
+      font-size: 0.75rem;
+      line-height: 1.4;
+      text-align: left;
+    }
+
+    /* ── Message box ── */
+    #message-box {
+      min-height: 30px;
+      margin-top: 14px;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.48rem;
+      color: #86efac;
+      line-height: 1.7;
+      letter-spacing: 0.03em;
+    }
+
+    /* ── Milestone banner ── */
+    #milestone {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      z-index: 200;
+      background: linear-gradient(135deg, #1a1a3e, #2d1b4e);
+      border: 3px solid var(--yellow);
+      color: white;
+      font-size: 1.4rem;
+      font-weight: 900;
+      padding: 28px 44px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 0 0 6px rgba(255,203,5,0.2), 0 0 80px rgba(255,203,5,0.5);
+      pointer-events: none;
+      transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1), opacity 0.3s;
+      opacity: 0;
+      max-width: 90vw;
+    }
+
+    #milestone::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--red), var(--yellow), var(--blue));
+      border-radius: 17px 17px 0 0;
+    }
+
+    #milestone.show {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+    }
+
+    .ms-title {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.65rem;
+      color: var(--yellow);
+      margin-bottom: 10px;
+      letter-spacing: 0.05em;
+    }
+
+    .ms-body { font-size: 1rem; line-height: 1.5; }
+
+    /* ── Floating burst ── */
+    .burst {
+      position: fixed;
+      font-size: 1.6rem;
+      pointer-events: none;
+      z-index: 150;
+      animation: floatUp 1s ease-out forwards;
+    }
+
+    @keyframes floatUp {
+      0%   { opacity: 1; transform: translateY(0) scale(1) rotate(0deg); }
+      100% { opacity: 0; transform: translateY(-130px) scale(0.5) rotate(var(--rot)); }
+    }
+
+    /* ── Pokéball confetti ── */
+    .pball {
+      position: fixed;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 2px solid #333;
+      pointer-events: none;
+      z-index: 150;
+      animation: ballFall var(--dur) ease-in forwards;
+      overflow: hidden;
+    }
+
+    .pball::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 50%;
+      background: var(--clr);
+    }
+
+    .pball::after {
+      content: '';
+      position: absolute;
+      top: calc(50% - 1px);
+      left: 0; right: 0;
+      height: 2px;
+      background: #333;
+    }
+
+    @keyframes ballFall {
+      0%   { opacity: 1; transform: translateY(0) rotate(0deg) translateX(0); }
+      100% { opacity: 0; transform: translateY(var(--dy)) rotate(var(--rot)) translateX(var(--dx)); }
+    }
+
+    /* Lightning flash */
+    #lightning {
+      position: fixed;
+      inset: 0;
+      background: rgba(255,203,5,0.15);
+      pointer-events: none;
+      z-index: 5;
+      opacity: 0;
+      transition: opacity 0.05s;
+    }
+
+    #lightning.flash { opacity: 1; }
+  </style>
+</head>
+<body>
+
+<div id="bg"></div>
+<div id="lightning"></div>
+
+<div id="card">
+
+  <div class="poke-logo">✦ POKÉMON BIRTHDAY EDITION ✦</div>
+
+  <h1>Happy Birthday,<br><span>Edison!</span></h1>
+  <div class="age">22</div>
+  <p class="subtitle">⚡ A wild celebration has appeared! ⚡</p>
+
+  <!-- Pikachu SVG -->
+  <div id="pika-wrap">
+    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <!-- Body -->
+      <ellipse cx="50" cy="62" rx="22" ry="20" fill="#FFCB05"/>
+      <!-- Head -->
+      <circle cx="50" cy="40" r="24" fill="#FFCB05"/>
+      <!-- Ears -->
+      <polygon points="28,20 22,2 36,14" fill="#FFCB05"/>
+      <polygon points="26,19 22,4 34,14" fill="#2b2b2b"/>
+      <polygon points="72,20 78,2 64,14" fill="#FFCB05"/>
+      <polygon points="74,19 78,4 66,14" fill="#2b2b2b"/>
+      <!-- Eyes -->
+      <ellipse cx="41" cy="37" rx="5" ry="5.5" fill="#1a1a1a"/>
+      <ellipse cx="59" cy="37" rx="5" ry="5.5" fill="#1a1a1a"/>
+      <circle cx="43" cy="35.5" r="1.5" fill="white"/>
+      <circle cx="61" cy="35.5" r="1.5" fill="white"/>
+      <!-- Cheeks -->
+      <ellipse cx="34" cy="44" rx="6" ry="5" fill="#E3350D" opacity="0.85"/>
+      <ellipse cx="66" cy="44" rx="6" ry="5" fill="#E3350D" opacity="0.85"/>
+      <!-- Nose -->
+      <ellipse cx="50" cy="43" rx="2" ry="1.2" fill="#1a1a1a"/>
+      <!-- Mouth smile -->
+      <path d="M45,48 Q50,54 55,48" stroke="#1a1a1a" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+      <!-- Arms -->
+      <ellipse cx="28" cy="66" rx="8" ry="6" fill="#FFCB05" transform="rotate(-20,28,66)"/>
+      <ellipse cx="72" cy="66" rx="8" ry="6" fill="#FFCB05" transform="rotate(20,72,66)"/>
+      <!-- Tail hint -->
+      <path d="M70,74 L82,60 L78,52 L88,45" stroke="#FFCB05" stroke-width="5" fill="none" stroke-linecap="round"/>
+      <path d="M70,74 L82,60 L78,52 L88,45" stroke="#2b2b2b" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <!-- Feet -->
+      <ellipse cx="41" cy="80" rx="9" ry="5" fill="#FFCB05"/>
+      <ellipse cx="59" cy="80" rx="9" ry="5" fill="#FFCB05"/>
+      <!-- Belly -->
+      <ellipse cx="50" cy="65" rx="12" ry="10" fill="#f5d878"/>
+      <!-- Back stripes -->
+      <path d="M35,60 Q30,55 33,49" stroke="#8B6914" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.5"/>
+      <path d="M65,60 Q70,55 67,49" stroke="#8B6914" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.5"/>
+    </svg>
+  </div>
+
+  <!-- Pokéball button -->
+  <button id="boom-btn" title="Throw the Pokéball!">
+    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <!-- Top half red -->
+      <path d="M5,50 A45,45 0 0,1 95,50 Z" fill="#E3350D"/>
+      <!-- Bottom half white -->
+      <path d="M5,50 A45,45 0 0,0 95,50 Z" fill="#f0f0f0"/>
+      <!-- Outer ring -->
+      <circle cx="50" cy="50" r="45" fill="none" stroke="#1a1a1a" stroke-width="5"/>
+      <!-- Middle band -->
+      <line x1="5" y1="50" x2="95" y2="50" stroke="#1a1a1a" stroke-width="5"/>
+      <!-- Center button ring -->
+      <circle cx="50" cy="50" r="12" fill="#1a1a1a"/>
+      <circle cx="50" cy="50" r="8" fill="#f0f0f0"/>
+      <circle cx="50" cy="50" r="4" fill="#ddd"/>
+      <!-- Shine -->
+      <ellipse cx="36" cy="32" rx="7" ry="4" fill="rgba(255,255,255,0.35)" transform="rotate(-30,36,32)"/>
+    </svg>
+  </button>
+  <div class="btn-label">TAP TO THROW!</div>
+
+  <!-- Counter -->
+  <div id="counter-wrap">
+    <div id="click-count">0</div>
+    <div class="counter-label">Pokéballs<br>thrown 🎯</div>
+  </div>
+
+  <!-- HP Bar -->
+  <div class="hp-wrap">
+    <div class="hp-row">
+      <div class="hp-label">XP</div>
+      <div class="hp-track"><div id="prog-bar"></div></div>
+    </div>
+    <div class="hp-sub" id="prog-label">Next reward at <span id="next-milestone">10</span> throws</div>
+  </div>
+
+  <!-- Message -->
+  <div id="message-box"></div>
+</div>
+
+<div id="milestone">
+  <div class="ms-title" id="ms-title"></div>
+  <div class="ms-body" id="ms-body"></div>
+</div>
+
+<script>
+  // ── Background setup ──────────────────────────────────────
+  const bg = document.getElementById('bg');
+
+  // Stars
+  for (let i = 0; i < 60; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    const sz = Math.random() * 2.5 + 0.5;
+    s.style.cssText = `width:${sz}px;height:${sz}px;top:${Math.random()*100}%;left:${Math.random()*100}%;animation-delay:${Math.random()*3}s;animation-duration:${1.5+Math.random()*2}s;`;
+    bg.appendChild(s);
+  }
+
+  // Drifting Pokéballs
+  const ballColors = ['#E3350D','#3B4CCA','#FFCB05','#4ade80'];
+  for (let i = 0; i < 10; i++) {
+    const b = document.createElement('div');
+    b.className = 'bg-ball';
+    const sz = 40 + Math.random() * 120;
+    b.style.cssText = `
+      width:${sz}px; height:${sz}px;
+      left:${Math.random()*100}%;
+      background:${ballColors[i%ballColors.length]};
+      animation-duration:${12+Math.random()*20}s;
+      animation-delay:${-Math.random()*15}s;
+    `;
+    bg.appendChild(b);
+  }
+
+  // ── Data ──────────────────────────────────────────────────
+  const burstEmojis = ['⚡','✨','🌟','💛','🎉','🔥','💥','🎊','⭐','💫','🏆','🎂'];
+
+  const milestones = [
+    { at: 10,  title: 'GOTCHA!',         body: '⚡ Wild CELEBRATION was caught!\nEdison is lucky to have you!' },
+    { at: 22,  title: 'LEVEL 22!',       body: '🎂 22 throws for 22 years!\nEdison used BIRTHDAY BLAST!\nIt\'s super effective! 💥' },
+    { at: 50,  title: 'SUPER EFFECTIVE!',body: '🥳 50 Pokéballs?!\nYou\'re a true Pokémon Master\nof birthday hype!' },
+    { at: 100, title: 'RARE CANDY!',     body: '👑 100 THROWS!\nYou are Edison\'s #1 trainer!\nLegendary Pokémon detected...' },
+    { at: 200, title: 'MASTER BALL!',    body: '🔥 200 THROWS!!\nOkay you need a Pokécenter 😂\nEdison owes you a raid!' },
+    { at: 500, title: 'SHINY FOUND!!',   body: '✨ 500 THROWS!!!\nSHINY EDISON APPEARED!\nAbsolutely legendary.' },
+    { at: 1000,title: '✦ POKÉMON MASTER',body: '🏆 1000 THROWS!!!\nYou are the greatest trainer\nof all time. Edison is honored 🙏' },
+  ];
+
+  const messages = [
+    '> A wild BIRTHDAY appeared!',
+    '> Edison used CHARM! It\'s super effective!',
+    '> PIKACHU is cheering you on! ⚡',
+    '> Edison gained +1 happiness!',
+    '> Your friendship with Edison grew!',
+    '> CRITICAL HIT! 🎉',
+    '> Edison\'s SPECIAL DEFENSE rose!',
+    '> Go! Keep throwing! 🎯',
+    '> The crowd goes wild! 🔥',
+    '> Edison used BIRTHDAY BASH!',
+    '> It\'s not very effective... JUST KIDDING! 💥',
+    '> A rare MEMORY appeared!',
+  ];
+
+  const pkColors = ['#E3350D','#FFCB05','#3B4CCA','#4ade80','#e879f9','#f97316'];
+
+  // ── State ─────────────────────────────────────────────────
+  let clicks = 0;
+  let milestoneIdx = 0;
+  let milestoneTimeout = null;
+  let msgIdx = 0;
+
+  const btn       = document.getElementById('boom-btn');
+  const pikaWrap  = document.getElementById('pika-wrap');
+  const countEl   = document.getElementById('click-count');
+  const msgBox    = document.getElementById('message-box');
+  const progBar   = document.getElementById('prog-bar');
+  const progLabel = document.getElementById('prog-label');
+  const nextMsEl  = document.getElementById('next-milestone');
+  const msBanner  = document.getElementById('milestone');
+  const msTitle   = document.getElementById('ms-title');
+  const msBody    = document.getElementById('ms-body');
+  const lightning = document.getElementById('lightning');
+
+  // ── Helpers ───────────────────────────────────────────────
+  function flashLightning() {
+    lightning.classList.add('flash');
+    setTimeout(() => lightning.classList.remove('flash'), 80);
+  }
+
+  function spawnBurst(x, y, count = 3) {
+    for (let i = 0; i < count; i++) {
+      const el = document.createElement('div');
+      el.className = 'burst';
+      el.textContent = burstEmojis[Math.floor(Math.random() * burstEmojis.length)];
+      el.style.left = (x - 16 + (Math.random()-0.5)*70) + 'px';
+      el.style.top  = (y - 16) + 'px';
+      el.style.setProperty('--rot', (Math.random()*60-30)+'deg');
+      el.style.animationDelay = (Math.random()*0.1)+'s';
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 1200);
+    }
+  }
+
+  function spawnPokéballs(x, y, amount = 14) {
+    for (let i = 0; i < amount; i++) {
+      const el = document.createElement('div');
+      el.className = 'pball';
+      el.style.left = x + 'px';
+      el.style.top  = y + 'px';
+      el.style.setProperty('--clr', pkColors[Math.floor(Math.random()*pkColors.length)]);
+      const angle = Math.random() * Math.PI * 2;
+      const dist  = 80 + Math.random()*180;
+      el.style.setProperty('--dx', Math.cos(angle)*dist+'px');
+      el.style.setProperty('--dy', (Math.sin(angle)*dist+80)+'px');
+      el.style.setProperty('--rot', (Math.random()*720-360)+'deg');
+      el.style.setProperty('--dur', (0.5+Math.random()*0.7)+'s');
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 1300);
+    }
+  }
+
+  function showMilestone(ms) {
+    msTitle.textContent = ms.title;
+    msBody.innerHTML = ms.body.replace(/\n/g,'<br>');
+    msBanner.classList.add('show');
+    spawnPokéballs(window.innerWidth/2, window.innerHeight/2, 50);
+    flashLightning();
+    if (milestoneTimeout) clearTimeout(milestoneTimeout);
+    milestoneTimeout = setTimeout(() => msBanner.classList.remove('show'), 3200);
+  }
+
+  function updateProgress() {
+    const current = milestones[milestoneIdx]?.at ?? Infinity;
+    const prev    = milestoneIdx > 0 ? milestones[milestoneIdx-1].at : 0;
+    const range   = current - prev;
+    const pct     = Math.min(((clicks - prev) / range) * 100, 100);
+    progBar.style.width = pct + '%';
+
+    if (milestoneIdx < milestones.length) {
+      nextMsEl.textContent = current;
+      progLabel.style.display = '';
+    } else {
+      progLabel.style.display = 'none';
+    }
+  }
+
+  // ── Click ─────────────────────────────────────────────────
+  function handleClick(e) {
+    clicks++;
+
+    // Counter
+    countEl.textContent = clicks;
+    countEl.classList.remove('pop');
+    void countEl.offsetWidth;
+    countEl.classList.add('pop');
+
+    // Button throw
+    btn.classList.remove('throw');
+    void btn.offsetWidth;
+    btn.classList.add('throw');
+
+    // Pikachu zap
+    if (clicks % 3 === 0) {
+      pikaWrap.classList.remove('zap');
+      void pikaWrap.offsetWidth;
+      pikaWrap.classList.add('zap');
+      flashLightning();
+    }
+
+    const cx = e.clientX ?? window.innerWidth/2;
+    const cy = e.clientY ?? window.innerHeight/2;
+
+    spawnBurst(cx, cy, 2);
+    if (clicks % 4 === 0) spawnPokéballs(cx, cy, 14);
+
+    // Message cycling
+    if (clicks % 6 === 0) {
+      msgBox.textContent = '> ' + messages[msgIdx % messages.length].replace(/^> /, '');
+      msgIdx++;
+    }
+
+    // Milestone check
+    if (milestoneIdx < milestones.length && clicks >= milestones[milestoneIdx].at) {
+      showMilestone(milestones[milestoneIdx]);
+      milestoneIdx++;
+    }
+
+    updateProgress();
+  }
+
+  btn.addEventListener('click', handleClick);
+
+  // Set first message
+  msgBox.textContent = '> What will Edison do?';
+  updateProgress();
+</script>
+</body>
+</html>
